@@ -240,34 +240,25 @@ extension ViewController:UITableViewDataSource,ExampleCellDelegate
         cell.Title.text = dic.title
         
         cell.cellDelegate = self
-
-        cell.Click.addTarget(self, action: #selector(didTapButton(cell:)), for: .touchUpInside)
     
         return cell
     }
     
     @objc func didTapButton(cell: Tblcell)
     {
-        if let indexPath = Tbl.indexPath(for: cell)
+        if Tbl.indexPath(for: cell) != nil
         {
-            print(indexPath.row)
             if cell.Cancel.isHidden == false
             {
                 cell.Cancel.isHidden = true
-            }
-            else if cell.Cancel.isHidden == true && cell.LikeLeftSide.constant == 10
-            {
                 cell.LikeLeftSide.constant = -32
             }
             else if cell.LikeLeftSide.constant == -32 && cell.like.isHidden == false
             {
                 cell.like.isHidden = true
+                cell.commentLeftSide.constant = -32
             }
-            else if cell.like.isHidden == true && cell.commentLeftSide.constant == 10
-            {
-                cell.commentLeftSide.constant = -36
-            }
-            else if cell.commentLeftSide.constant == -36 && cell.comment.isHidden == false
+            else if cell.commentLeftSide.constant == -32 && cell.comment.isHidden == false
             {
                 cell.comment.isHidden = true
             }
@@ -337,7 +328,6 @@ class Tblcell  : UITableViewCell
     @IBAction func btnTapped(_ sender: UIButton) {
         cellDelegate?.didTapButton(cell: self)
     }
-    
 }
 
 
